@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist", // Carpeta a donde va a compilar los archivos
+        "rootDir": "./src", // Carpeta de donde va a tomar los archivos TS
+        "lib": [
+            "ESNext"
+        ],
+        "target": "ESNext", // Aquí le asignamos la version de ECMAScript que vamos a utilizar
+        "moduleResolution": "NodeNext",
+        "module": "NodeNext",
+        "strict": false, // Activa el strict mode
+        "sourceMap": true, // con esto podemos hacer debugger
+        "esModuleInterop": true, // Esto nos permitira usar modulos de commondJS 
+        "declaration": true,
+    },
+    "include": [
+        "src/**/*.ts"
+    ]
+}
