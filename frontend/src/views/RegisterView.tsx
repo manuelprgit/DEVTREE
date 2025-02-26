@@ -5,9 +5,17 @@ import { ErrorMessages } from '../components/ErrorMessages';
 
 export const RegisterView = () => {
 
-    const { register, watch, handleSubmit, formState: { errors } } = useForm();
+    const initialVavlues = {
+        name: '',
+        email: '',
+        handle: '',
+        password: '',
+        password_confirmation: '',
+    }
 
-    console.log(errors)
+    const { register, watch, handleSubmit, formState: { errors } } = useForm({defaultValues: initialVavlues});
+
+    const password = watch('password');
 
     const handleRegister = () => {
         console.log('desde aqui')
@@ -31,7 +39,8 @@ export const RegisterView = () => {
                             required: 'El Nombre es obligatorio'
                         })}
                     />
-                    <p className='absolute bottom-[-15px] text-red-500'>{errors.name && String(errors.name?.message)}</p>
+                    {errors.name && <ErrorMessages>{errors.name?.message}</ErrorMessages>}
+                    
                 </div>
                 <div className="grid grid-cols-1 space-y-3 relative mb-6">
                     <label htmlFor="email" className="text-2xl text-slate-500">E-mail</label>
@@ -41,10 +50,15 @@ export const RegisterView = () => {
                         placeholder="Email de Registro"
                         className="bg-slate-300 border-none p-3 rounded-lg placeholder-slate-400"
                         {...register('email', {
-                            required: 'El Email es obligatorio'
+                            required: 'El Email es obligatorio',
+                            pattern:{
+                                value:/\S+@\S+\.\S+/,
+                                message: "El formato de correo no es valido"
+                            }
                         })}
                     />
-                    <p className='absolute bottom-[-15px] text-red-500'>{errors.email && String(errors.email?.message)}</p>
+                    {errors.email && <ErrorMessages>{errors.email?.message}</ErrorMessages>}
+                    
 
                 </div>
                 <div className="grid grid-cols-1 space-y-3 relative mb-6">
@@ -58,7 +72,8 @@ export const RegisterView = () => {
                             required: 'el Handle es obligatorio'
                         })}
                     />
-                    <p className='absolute bottom-[-15px] text-red-500'>{errors.handle && String(errors.handle?.message)}</p>
+                    {errors.handle && <ErrorMessages>{errors.handle?.message}</ErrorMessages>}
+        
 
                 </div>
                 <div className="grid grid-cols-1 space-y-3 relative mb-6">
@@ -69,10 +84,16 @@ export const RegisterView = () => {
                         placeholder="Password de Registro"
                         className="bg-slate-300 border-none p-3 rounded-lg placeholder-slate-400"
                         {...register('password', {
-                            required: 'El Password es obligatorio'
+                            required: 'El Password es obligatorio',
+                            minLength:{
+                                value: 8,
+                                message:'La contrasenia debe de tener minimo 8 caracteres'
+                            }
                         })}
                     />
-                    <p className='absolute bottom-[-15px] text-red-500'>{errors.password && String(errors.password?.message)}</p>
+
+                    {errors.password && <ErrorMessages>{errors.password?.message}</ErrorMessages>}
+
 
                 </div>
 
@@ -84,7 +105,8 @@ export const RegisterView = () => {
                         placeholder="Repetir Password"
                         className="bg-slate-300 border-none p-3 rounded-lg placeholder-slate-400"
                         {...register('password_confirmation', {
-                            required: 'Este Password también es obligatorio'
+                            required: 'Este Password también es obligatorio',
+                            validate: (value) => value === password || 'Las contrasenias no coinciden'
                         })}
                     />
 
