@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import axios, { isAxiosError } from 'axios';
 import { ErrorMessages } from '../components/ErrorMessages';
 import { TRegisterForm } from '../types';
-import { TRegisterForm } from '../types';
 
 
 export const RegisterView = () => {
