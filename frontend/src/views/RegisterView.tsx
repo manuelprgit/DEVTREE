@@ -1,11 +1,12 @@
 import { NavLink } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { ErrorMessages } from '../components/ErrorMessages';
+import { TRegisterForm } from '../types';
 
 
 export const RegisterView = () => {
 
-    const initialVavlues = {
+    const initialValues = {
         name: '',
         email: '',
         handle: '',
@@ -13,12 +14,12 @@ export const RegisterView = () => {
         password_confirmation: '',
     }
 
-    const { register, watch, handleSubmit, formState: { errors } } = useForm({defaultValues: initialVavlues});
+    const { register, watch, handleSubmit, formState: { errors } } = useForm<TRegisterForm>({ defaultValues: initialValues });
 
     const password = watch('password');
 
-    const handleRegister = () => {
-        console.log('desde aqui')
+    const handleRegister = (formData: TRegisterForm) => {
+        console.log(formData)
     }
 
     return (
@@ -40,7 +41,7 @@ export const RegisterView = () => {
                         })}
                     />
                     {errors.name && <ErrorMessages>{errors.name?.message}</ErrorMessages>}
-                    
+
                 </div>
                 <div className="grid grid-cols-1 space-y-3 relative mb-6">
                     <label htmlFor="email" className="text-2xl text-slate-500">E-mail</label>
@@ -51,14 +52,14 @@ export const RegisterView = () => {
                         className="bg-slate-300 border-none p-3 rounded-lg placeholder-slate-400"
                         {...register('email', {
                             required: 'El Email es obligatorio',
-                            pattern:{
-                                value:/\S+@\S+\.\S+/,
+                            pattern: {
+                                value: /\S+@\S+\.\S+/,
                                 message: "El formato de correo no es valido"
                             }
                         })}
                     />
                     {errors.email && <ErrorMessages>{errors.email?.message}</ErrorMessages>}
-                    
+
 
                 </div>
                 <div className="grid grid-cols-1 space-y-3 relative mb-6">
@@ -73,7 +74,7 @@ export const RegisterView = () => {
                         })}
                     />
                     {errors.handle && <ErrorMessages>{errors.handle?.message}</ErrorMessages>}
-        
+
 
                 </div>
                 <div className="grid grid-cols-1 space-y-3 relative mb-6">
@@ -85,9 +86,9 @@ export const RegisterView = () => {
                         className="bg-slate-300 border-none p-3 rounded-lg placeholder-slate-400"
                         {...register('password', {
                             required: 'El Password es obligatorio',
-                            minLength:{
+                            minLength: {
                                 value: 8,
-                                message:'La contrasenia debe de tener minimo 8 caracteres'
+                                message: 'La contrasenia debe de tener minimo 8 caracteres'
                             }
                         })}
                     />
