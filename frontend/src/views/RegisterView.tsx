@@ -1,11 +1,13 @@
-import { NavLink } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { NavLink } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import axios, {isAxiosError} from 'axios';
 import { ErrorMessages } from '../components/ErrorMessages';
+import { TRegisterForm } from '../types';
 
 
 export const RegisterView = () => {
 
-    const initialVavlues = {
+    const initialVavlues: TRegisterForm = {
         name: '',
         email: '',
         handle: '',
@@ -13,12 +15,21 @@ export const RegisterView = () => {
         password_confirmation: '',
     }
 
-    const { register, watch, handleSubmit, formState: { errors } } = useForm({defaultValues: initialVavlues});
+    const { register, watch, handleSubmit, formState: { errors } } = useForm<TRegisterForm>({defaultValues: initialVavlues});
 
     const password = watch('password');
 
-    const handleRegister = () => {
-        console.log('desde aqui')
+    const handleRegister = async (registerForm: TRegisterForm) => {
+        try {
+            const { data } = await axios.post('http://localhost:4001/api/auth/register', registerForm);
+            console.log(data);
+            
+        } catch (error: any) {
+            if(isAxiosError(error) && error.response){
+                console.log(error.response.data);
+            }
+        }
+
     }
 
     return (
