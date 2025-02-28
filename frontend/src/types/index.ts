@@ -4,7 +4,7 @@ export type TUser = {
     email: string,
 }
 
-export type TRegisterForm = Pick<TUser, 'email' | 'handle' | 'name'> & {
+export type TRegisterForm = Pick<TUser, 'name' | 'handle' | 'email'> & {
     password: string,
     password_confirmation: string
 }
