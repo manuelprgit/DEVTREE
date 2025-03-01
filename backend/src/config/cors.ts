@@ -1,10 +1,10 @@
-import {CorsOptions} from 'cors'
+import { CorsOptions } from 'cors'
 
-export const corsConfig:CorsOptions = {
+export const corsConfig: CorsOptions = {
     origin: (origin, callBack) => {
-        if(origin === 'http://localhost:5173'){
+        if (origin === process.env.FRONTEND_URL) {
             callBack(null, true);
-        }else{
+        } else {
             callBack(new Error('Error en CORS'));
         }
     }

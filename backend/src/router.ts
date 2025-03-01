@@ -14,7 +14,7 @@ router.post('/api/auth/register',
         .withMessage('El handle no puede ir vacío'),
     body('email')
         .isEmail()
-        .withMessage('El correo no valido'),
+        .withMessage('El correo no es valido'),
     body('name')
         .notEmpty()
         .withMessage('El nombre no puede ir vacío'),

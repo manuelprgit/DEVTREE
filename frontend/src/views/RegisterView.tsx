@@ -1,13 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import axios, { isAxiosError } from 'axios';
-import { ErrorMessages } from '../components/ErrorMessages';
+import { isAxiosError } from 'axios';
 import { TRegisterForm } from '../types';
+import { toast } from 'sonner';
+import { ErrorMessages } from '../components/ErrorMessages';
+import { api } from '../config/axios';
 
 
 export const RegisterView = () => {
 
-    const initialVavlues: TRegisterForm = {
+    const defaultValues: TRegisterForm = {
         name: '',
         email: '',
         handle: '',
@@ -15,18 +17,20 @@ export const RegisterView = () => {
         password_confirmation: '',
     }
 
-    const { register, watch, handleSubmit, formState: { errors } } = useForm<TRegisterForm>({ defaultValues: initialVavlues });
+    const { register, watch, reset, handleSubmit, formState: { errors } } = useForm<TRegisterForm>({ defaultValues });
 
     const password = watch('password');
 
     const handleRegister = async (registerForm: TRegisterForm) => {
         try {
-            const { data } = await axios.post('http://localhost:4001/api/auth/register', registerForm);
-            console.log(data);
+            const { data } = await api.post(`auth/register`, registerForm);
+            console.log(data)
+            reset()
+            toast.success(data.message);
 
         } catch (error: any) {
             if (isAxiosError(error) && error.response) {
-                console.log(error.response.data);
+                toast.error(error.response.data.message)
             }
         }
 
@@ -64,7 +68,7 @@ export const RegisterView = () => {
                             required: 'El Email es obligatorio',
                             pattern: {
                                 value: /\S+@\S+\.\S+/,
-                                message: "El formato de correo no es valido"
+                                message: "El formato del correo no es valido"
                             }
                         })}
                     />
@@ -73,7 +77,7 @@ export const RegisterView = () => {
 
                 </div>
                 <div className="grid grid-cols-1 space-y-3 relative mb-6">
-                    <label htmlFor="handle" className="text-2xl text-slate-500">Handle</label>
+                    <label htmlFor="handle" className="text-2xl text-slate-500">Usuario</label>
                     <input
                         id="handle"
                         type="text"

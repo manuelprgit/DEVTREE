@@ -8,3 +8,7 @@ export type TRegisterForm = Pick<TUser, 'name' | 'handle' | 'email'> & {
     password: string,
     password_confirmation: string
 }
+
+export type TLoginView = Pick<TUser, 'email'> & {
+    password: string,
+}

@@ -41,7 +41,7 @@ const login = async (req: Request, res: Response) => {
     if (!user) {
         res.status(404).json({
             status: 404,
-            message: "El usuario no existe"
+            message: "Usuario y/o contraseña incorrecto"
         })
         return
     }
@@ -50,7 +50,7 @@ const login = async (req: Request, res: Response) => {
     if (!isPasswordCorrect) {
         res.status(401).json({
             status: 401,
-            message: 'Contraseña incorrecta'
+            message: 'Usuario y/o contraseña incorrecto'
         })
         return;
     }
