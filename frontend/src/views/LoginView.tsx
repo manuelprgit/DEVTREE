@@ -18,7 +18,8 @@ export const LoginView = () => {
     const handleLogin = async (formData: TLoginView) => {
         try {
             const { data } = await api.post('auth/login', formData)
-            toast.success(data);
+            toast(data)
+            localStorage.setItem('LOGIN_TOKEN', data)
         } catch (error) {
             if (isAxiosError(error) && error.response) {
                 toast.error(error.response.data.message)
@@ -28,10 +29,10 @@ export const LoginView = () => {
 
     return (
         <>
-            <h1 className="text-4xl font-bold text-white">Login</h1>
+            <h1 className="text-4xl text-center font-bold text-white">Login</h1>
             <form
                 onSubmit={handleSubmit(handleLogin)}
-                className="bg-white px-5 py-10 rounded-lg space-y-10 mt-10"
+                className="bg-white px-5 py-10  rounded-lg space-y-10 mt-10"
                 noValidate
             >
                 <div className="grid grid-cols-1 space-y-3 relative mb-6">
@@ -75,7 +76,7 @@ export const LoginView = () => {
                     value='Iniciar Sesión'
                 />
             </form>
-            <nav className="mt-10">
+            <nav className="mt-10 text-center">
                 <NavLink
                     className="text-lg text-white"
                     to={'/auth/register'}>

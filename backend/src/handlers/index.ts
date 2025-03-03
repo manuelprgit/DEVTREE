@@ -3,6 +3,7 @@ import { Response, Request } from "express";
 import slug from "slug";
 import { User } from "../models/User";
 import { comparePassword, hashPassword } from "../utils/Auth";
+import { generateJWT } from "../utils/jwt";
 
 const getUsers = async (_: Request, res: Response) => {
     const users = await User.find();
@@ -55,7 +56,9 @@ const login = async (req: Request, res: Response) => {
         return;
     }
 
-    res.send('Autenticado...')
+    const token = generateJWT({ id: user._id })
+
+    res.send(token)
 
 }
 

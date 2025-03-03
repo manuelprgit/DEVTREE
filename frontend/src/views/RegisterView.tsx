@@ -38,7 +38,7 @@ export const RegisterView = () => {
 
     return (
         <>
-            <h1 className='text-4xl font-bold text-white'>Crear Cuenta</h1>
+            <h1 className='text-4xl text-center font-bold text-white'>Crear Cuenta</h1>
             <form
                 onSubmit={handleSubmit(handleRegister)}
                 className="bg-white px-5 py-10 rounded-lg space-y-10 mt-10"
@@ -135,7 +135,7 @@ export const RegisterView = () => {
                     value='Crear Cuenta'
                 />
             </form>
-            <nav className='mt-10 text-white'>
+            <nav className='mt-10 text-center text-white'>
                 <NavLink
                     className="text-lg"
                     to={'/auth/login'}
