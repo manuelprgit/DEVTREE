@@ -11,14 +11,14 @@ export const Router = () => {
         <BrowserRouter>
             <Routes>
                 <Route element={<AuthLayout />}>
-                    <Route path='/auth/login' element={<LoginView />}></Route>
-                    <Route path='/auth/register' element={<RegisterView />}></Route>
+                    <Route path='/auth/login' element={<LoginView />}/>
+                    <Route path='/auth/register' element={<RegisterView />}/>
                 </Route>
 
                 <Route path="/admin" element={<AppLayout />}>
-                    <Route element={<LinkTreeView />} />
-                    <Route path="profile" element={<ProfileView />} />
-                </Route>
+                    <Route index={true} element={<LinkTreeView />}/>
+                    <Route path="profile" element={<ProfileView />}/>
+                </Route>                    
             </Routes>
 
         </BrowserRouter>
