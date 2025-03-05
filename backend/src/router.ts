@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 
-import { createAccount, getUsers, login } from './handlers';
+import { createAccount, getUser, login } from './handlers';
 import { handleInputsError } from './middleware/validation';
 
 const router = Router();
 
-router.get('/api/users', getUsers);
+router.get('/api/auth/user', getUser);
 
 router.post('/api/auth/register',
     body('handle')
