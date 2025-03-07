@@ -7,52 +7,13 @@ import { comparePassword, hashPassword } from "../utils/Auth";
 import { generateJWT } from "../utils/jwt";
 
 export const getUser = async (req: Request, res: Response) => {
-    const bearer = req.headers.authorization;
-
-    if(!bearer){
-        res.status(401).json({
-            status:401,
-            message: 'No autorizado'
-        })
-        return;
-    }
-
-    const [, token] = bearer.split(' ');
-
-    if(!token){
-        res.status(401).json({
-            status:401,
-            message: 'No autorizado'
-        })
-        return;
-    } 
-
-    try {
-        const result = jwt.verify(token, process.env.SECRET_WORD)
-        if(typeof result === 'object' && result.id){
-            const user = await User.findById(result.id).select('-password');
-            if(!user){
-                res.status(404).json({
-                    status:404,
-                    message: 'Usuario no existe'
-                })
-                return;
-            }
-            res.status(200).json({
-                status:200,
-                message: 'Usuario encontrado',
-                data: user
-            })
-            return;
-        }
-         
-    } catch (error) {
-        res.status(500).json({
-            status:500,
-            message: 'Token no valido'
-        })
-        return;
-    }
+    
+    const {user} = req
+    res.status(200).json({
+        status:200,
+        message: 'Usuario encontrado',
+        data: user
+    }) 
 
 }
 

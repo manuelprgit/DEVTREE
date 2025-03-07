@@ -3,10 +3,11 @@ import { body } from 'express-validator';
 
 import { createAccount, getUser, login } from './handlers';
 import { handleInputsError } from './middleware/validation';
+import { autenticated } from './middleware/authUser';
 
 const router = Router();
 
-router.get('/api/auth/user', getUser);
+router.get('/api/auth/user',autenticated, getUser);
 
 router.post('/api/auth/register',
     body('handle')
