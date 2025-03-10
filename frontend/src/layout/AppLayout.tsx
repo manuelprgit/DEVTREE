@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
 import NavigationTabs from "../components/NavigationTabs";
 import { useQuery } from "@tanstack/react-query";
@@ -6,16 +6,16 @@ import { getUser } from "../api/DevTreeAPI";
 
 export default function AppLayout() {
 
-    const {data, error} = useQuery({
+    const {data, isError, isLoading} = useQuery({
         queryFn: getUser,
         queryKey: ['user'],
         retry: 1, //cantidad de veces que volvera a hacer la peticion
         refetchOnWindowFocus: false //Refresca cada vez que hace foco en la pantalla
     })
 
-    console.log(error?.message);
+    if(isLoading) return 'Loading...';
 
-    console.log(data);
+    if(isError) return <Navigate to={'/auth/login'}/>;
 
     return (
         <>
