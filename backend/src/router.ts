@@ -7,7 +7,7 @@ import { autenticated } from './middleware/authUser';
 
 const router = Router();
 
-router.get('/api/auth/user',autenticated, getUser);
+router.get('/api/user',autenticated, getUser);
 
 router.post('/api/auth/register',
     body('handle')
