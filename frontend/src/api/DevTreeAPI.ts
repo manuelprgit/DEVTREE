@@ -1,9 +1,10 @@
 import { isAxiosError } from "axios";
 import { api } from "../config/axios"
+import { TUser } from "../types";
 
 export const getUser = async () => {
     try {
-        const { data } = await api('user');
+        const { data } = await api<TUser>('user');
         return data;
         
     } catch (error) {

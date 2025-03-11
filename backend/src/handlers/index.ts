@@ -9,11 +9,7 @@ import { generateJWT } from "../utils/jwt";
 export const getUser = async (req: Request, res: Response) => {
     
     const {user} = req
-    res.status(200).json({
-        status:200,
-        message: 'Usuario encontrado',
-        data: user
-    }) 
+    res.status(200).json( user ) 
 
 }
 
