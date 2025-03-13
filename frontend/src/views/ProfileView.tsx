@@ -1,14 +1,22 @@
-
+import { useForm } from 'react-hook-form'
+import { ErrorMessages } from '../components/ErrorMessages'
+import { TLoginView } from '../types'
 
 export function ProfileView() {
 
+    const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: { handle: '', description: '' } })
+
+    const handleUserProfileForm = (formData) => {
+        console.log(formData)
+    }
+
     return (
-        <form 
+        <form
             className="bg-white p-10 rounded-lg space-y-5"
-            onSubmit={() => {}}
+            onSubmit={handleSubmit(handleUserProfileForm)}
         >
             <legend className="text-2xl text-slate-800 text-center">Editar Información</legend>
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-1 gap-2 relative">
                 <label
                     htmlFor="handle"
                 >Usuario:</label>
@@ -16,21 +24,25 @@ export function ProfileView() {
                     type="text"
                     className="border-none bg-slate-100 rounded-lg p-2"
                     placeholder="Nombre de Usuario"
-                    disabled={true}
+                    {...register('handle', {
+                        required: 'El usuario es requerido'
+                    })}
                 />
+                {errors.handle && <ErrorMessages>{errors.handle.message}</ErrorMessages>}
             </div>
 
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-1 gap-2 relative">
                 <label
                     htmlFor="description"
                 >Descripción:</label>
                 <textarea
                     className="border-none bg-slate-100 rounded-lg p-2"
                     placeholder="Tu Descripción"
+                    {...register('description')}
                 />
             </div>
 
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-1 gap-2 relative">
                 <label
                     htmlFor="handle"
                 >Imagen:</label>
@@ -40,7 +52,7 @@ export function ProfileView() {
                     name="handle"
                     className="border-none bg-slate-100 rounded-lg p-2"
                     accept="image/*"
-                    onChange={ () => {} }
+                    onChange={() => { }}
                 />
             </div>
 
