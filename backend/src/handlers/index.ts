@@ -13,25 +13,14 @@ export const getUser = async (req: Request, res: Response) => {
 
 }
 
-export const updateProfileUser = async (req: Request, res: Response): Promise<void> => {
-
-    try {
-        console.log(req.body);
-    } catch (err) {
-        const error = new Error('Hubo un error');
-        res.status(500).json({ error: error.message })
-    }
-
-}
-
-export const updateProfleUser = async (req: Request, res: Response) => {
+export const updateProfileUser = async (req: Request, res: Response) => {
 
     try {
         const { description } = req.body;
 
         const handle = slug(req.body.handle);
         const handleExists = await User.findOne({ handle });
-        if (handleExists) {
+        if (handleExists && handleExists.email !== req.user.email) {
             res.status(409).json({
                 status: 409,
                 message: 'Nombre de usuario no disponible'
@@ -41,7 +30,8 @@ export const updateProfleUser = async (req: Request, res: Response) => {
 
         req.user.handle = handle;
         req.user.description = description;
-        req.user.save() //ERROR AL GUARDAR. VAMOS A VERLO EN EL PROXIMO VIDEO
+        console.log('entre');
+        req.user.save();
 
     } catch (error) {
         res.status(400).json({
