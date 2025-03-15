@@ -13,6 +13,12 @@ export const getUser = async (req: Request, res: Response) => {
 
 }
 
+export const updateProfleUser = (req: Request, res: Response)=>{
+
+    console.log(req.body)
+
+}
+
 export const createAccount = async (req: Request, res: Response) => {
 
     const { handle, email, password } = req.body;
