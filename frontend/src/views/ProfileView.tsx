@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 import { ErrorMessages } from '../components/ErrorMessages'
 import { useQueryClient } from '@tanstack/react-query'
 import { TProfileForm, TUser } from '../types';
+import axios from 'axios';
 
 export function ProfileView() {
 
@@ -15,8 +16,14 @@ export function ProfileView() {
         }
     })
 
-    const handleUserProfileForm = (formData: TProfileForm) => {
-        console.log(formData)
+    const handleUserProfileForm = async (formData: TProfileForm) => {
+        try {
+            const response = await axios.patch('http://localhost:4001/api/user',formData);
+            console.log(response.data);
+            
+        } catch (error) {
+            if(error instanceof Error) console.log(error.message);
+        }
     }
 
     //TEST
