@@ -7,9 +7,20 @@ import { comparePassword, hashPassword } from "../utils/Auth";
 import { generateJWT } from "../utils/jwt";
 
 export const getUser = async (req: Request, res: Response) => {
-    
-    const {user} = req
-    res.status(200).json( user ) 
+
+    const { user } = req
+    res.status(200).json(user)
+
+}
+
+export const updateProfile = async (req: Request, res: Response): Promise<void> => {
+
+    try {
+        console.log(req.body);
+    } catch (err) {
+        const error = new Error('Hubo un error');
+        res.status(500).json({ error: error.message })
+    }
 
 }
 
@@ -64,4 +75,3 @@ export const login = async (req: Request, res: Response) => {
     res.send(token)
 
 }
- 

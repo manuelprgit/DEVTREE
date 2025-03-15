@@ -1,13 +1,15 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 
-import { createAccount, getUser, login } from './handlers';
+import { createAccount, getUser, login, updateProfile } from './handlers';
 import { handleInputsError } from './middleware/validation';
-import { autenticated } from './middleware/authUser';
+import { authenticated } from './middleware/authUser';
 
 const router = Router();
 
-router.get('/api/user',autenticated, getUser);
+router.get('/api/user', authenticated, getUser);
+
+router.patch('/api/user', authenticated, updateProfile);
 
 router.post('/api/auth/register',
     body('handle')
