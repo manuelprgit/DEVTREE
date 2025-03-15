@@ -13,9 +13,31 @@ export const getUser = async (req: Request, res: Response) => {
 
 }
 
-export const updateProfleUser = (req: Request, res: Response)=>{
+export const updateProfleUser = async (req: Request, res: Response)=>{
 
-    console.log(req.body)
+    try {
+        const {description} = req.body;
+
+        const handle = slug(req.body.handle);
+        const handleExists = await User.findOne({handle});
+        if(handleExists){
+            res.status(409).json({
+                status: 409,
+                message: 'Nombre de usuario no disponible'
+            })
+            return;
+        }
+
+        req.user.handle = handle;
+        req.user.description = description;
+        req.user.save() //ERROR AL GUARDAR. VAMOS A VERLO EN EL PROXIMO VIDEO
+
+    } catch (error) {
+        res.status(400).json({
+            status: 400,
+            message: 'Error al intentar actualizar el perfil'
+        })
+    }
 
 }
 
