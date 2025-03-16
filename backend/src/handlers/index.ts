@@ -29,9 +29,9 @@ export const updateProfileUser = async (req: Request, res: Response) => {
         }
 
         req.user.handle = handle;
-        req.user.description = description;
-        console.log('entre');
+        req.user.description = description; 
         req.user.save();
+        res.send('Perfil actualizado correctamente');
 
     } catch (error) {
         res.status(400).json({
